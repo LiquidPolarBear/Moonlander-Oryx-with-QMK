@@ -8,8 +8,8 @@ enum custom_keycodes {
   HSV_0_0_255,
   HSV_212_255_255,
   HSV_132_255_255,
+  SPEECEBAR,
 };
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_moonlander(
@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_CAPS,        KC_A,           KC_S,           KC_D,           KC_F,           KC_G,           KC_H,                                                                           KC_TRANSPARENT, KC_H,           KC_J,           KC_K,           KC_L,           KC_SCLN,        KC_QUOTE,       
     KC_LEFT_SHIFT,  KC_Z,           KC_X,           KC_C,           KC_C,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       KC_TRANSPARENT, 
     KC_LEFT_CTRL,   KC_LEFT_GUI,    KC_LEFT_ALT,    KC_N,           KC_M,           KC_MS_WH_DOWN,                                                                                                  KC_NO,          KC_UP,          KC_DOWN,        KC_LBRC,        KC_RBRC,        KC_TRANSPARENT, 
-    KC_SPACE,       KC_V,           KC_F1,                          KC_DELETE,      KC_LEFT,        KC_RIGHT
+    SPEECEBAR,       KC_V,           KC_F1,                          KC_DELETE,      KC_LEFT,        KC_RIGHT
   ),
   [3] = LAYOUT_moonlander(
     KC_ESCAPE,      KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
@@ -138,6 +138,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             rgblight_mode(1);
             rgblight_sethsv(132,255,255);
+        }
+        return false;
+    case SPEECEBAR:
+        if (record->event.pressed) {
+            // Input Space
+            register_code(KC_SPACE);
+            wait_ms(6);  // Wait for 6ms
+            unregister_code(KC_SPACE);
+
+            // Input LCtrl
+            register_code(KC_LCTL);
+            wait_ms(50);  // Wait for 50ms
+            unregister_code(KC_LCTL);
+
+            // Input Space again
+            register_code(KC_SPACE);
+            wait_ms(20);  // Wait for 20ms
+            unregister_code(KC_SPACE);
+
+            // Input LCtrl again
+            register_code(KC_LCTL);
+            unregister_code(KC_LCTL);
         }
         return false;
   }
