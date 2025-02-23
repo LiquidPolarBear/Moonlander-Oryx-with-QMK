@@ -6,9 +6,9 @@ on:
       layout_id:
         description: "Layout id available in URL https://configure.zsa.io/voyager/layouts/[ID_IS_HERE]/latest"
         required: true
-        default: "g7jjw"
+        default: "pNAmE"
       layout_geometry:
-        description: "Keyboard type"
+        description: "Moonlander Mark I"
         type: choice
         options:
           - voyager
@@ -21,7 +21,7 @@ on:
           - ergodox_ez/stm32/shine
           - planck_ez
           - planck_ez/glow
-        default: voyager
+        default: moonlander
 
 permissions:
   contents: write
